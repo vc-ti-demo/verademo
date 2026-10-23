@@ -71,7 +71,15 @@ jobs:
           file: 'verademo.war'
           debug: 1
           fail_build: false
-          artifact_name: 'Veracode Pipeline-Scan Results'
+
+      - name: Upload Pipeline Scan results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: 'Veracode Pipeline-Scan Results'
+          path: |
+            results.json
+            filtered_results.json
 
   veracode_fix:
     needs: pipeline_scan
